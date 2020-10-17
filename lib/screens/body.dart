@@ -9,6 +9,12 @@ import 'package:http/http.dart' as http;
 import 'header_bar.dart';
 
 class Body extends StatelessWidget {
+
+  Future<http.Response> fetchAlbum() {
+    return http.get('https://jsonplaceholder.typicode.com/albums/1');
+  }
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
