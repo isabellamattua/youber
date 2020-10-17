@@ -26,8 +26,8 @@ class header_bar extends StatelessWidget {
             decoration: BoxDecoration(
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36),
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0),
                 )
             ),
             child: Row (

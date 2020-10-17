@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youber/constants.dart';
@@ -15,8 +17,29 @@ class Body extends StatelessWidget {
             children: <Widget>[
               header_bar(size: size),
               TextWithUnderlineDeco( text: "Orders"),
-              Container(
+              Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: kDefaultPadding,
+                      vertical: kDefaultPadding
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: kPrimaryColor.withOpacity(0.7),
 
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          offset:  Offset(0,10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.23),
+                        )
+                      ]
+                  ),
+
+
+                ),
               )
 
             ]
