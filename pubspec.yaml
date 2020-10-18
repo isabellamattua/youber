@@ -26,25 +26,32 @@ dependencies:
     sdk: flutter
 
 
+  flutter_gallery: ^2.4.0+20400
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+
+  cupertino_icons: ^0.1.3
+=======
   cupertino_icons: ^1.0.0
   flutter_svg: ^0.18.0
   nice_button: ^0.1.7
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
+ #for google dialogue flow
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
 
