@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youber/constants.dart';
 import 'package:youber/screens/TextWithUnderlineDeco.dart';
+import 'package:youber/screens/OrderDetails.dart';
 
 
 class OrderBox extends StatelessWidget {
@@ -32,6 +33,13 @@ class OrderBox extends StatelessWidget {
                   title: Text(orderNumber),
                   subtitle: Text(name),
                   trailing: Icon(Icons.more_vert),
+                  onTap: () {
+                    // Navigate to second route when tapped.
+                    Navigator.push(context, MaterialPageRoute( builder: (context) {
+                      return OrderDetails();
+                    }
+                    ));
+                  },
                 ),
               ),
         ]
@@ -42,4 +50,6 @@ class OrderBox extends StatelessWidget {
 
   }
 }
+
+
 
