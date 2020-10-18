@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'contact.dart';
 import 'contact_services.dart';
+
+import 'package:youber/constants.dart';
+import 'package:youber/screens/cHomePage.dart';
+import 'package:youber/screens/home_screen.dart';
+import 'package:youber/screens/loginScreen.dart';
+import 'package:nice_button/nice_button.dart';
+
 
 import 'dart:async';
 import 'package:intl/intl.dart';
@@ -12,18 +20,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return new MaterialApp(
       title: 'Flutter Form Demo',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(title: 'Flutter Form Demo'),
+
+    return MaterialApp(
+      // debugShowCheckedModeBanner: false,
+      title: 'Youber',
+      theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
+      ),
+      home: cHomePage(),
+
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+
 
   final String title;
 
@@ -204,4 +224,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
