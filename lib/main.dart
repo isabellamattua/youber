@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primarySwatch: Colors.blue,
       ),
-      home: cHomePage(),
+      home: LoginScreen(),
     );
   }
 }

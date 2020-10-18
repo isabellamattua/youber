@@ -29,7 +29,7 @@ class TextWithUnderlineDeco extends StatelessWidget {
               right: 0,
               child: Container(
                 height: 5,
-                color:kPrimaryColor.withOpacity(0.2),
+                color:kDarkerTextColor.withOpacity(0.2),
               ),
             )
 
