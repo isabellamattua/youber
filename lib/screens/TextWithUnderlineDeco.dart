@@ -13,7 +13,7 @@ class TextWithUnderlineDeco extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container (
-        height: 24,
+        height: 30,
         child: Stack (
           children: <Widget>[
             Padding(
