@@ -4,15 +4,14 @@ import 'package:youber/constants.dart';
 import 'package:youber/screens/TextWithUnderlineDeco.dart';
 import 'package:youber/screens/OrderBox.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_svg/svg.dart';
 
 
 import 'header_bar.dart';
 
 class Body extends StatelessWidget {
 
-  Future<http.Response> fetchAlbum() {
-    return http.get('https://jsonplaceholder.typicode.com/albums/1');
-  }
+ 
 
 
   @override
@@ -23,16 +22,20 @@ class Body extends StatelessWidget {
             children: <Widget>[
               header_bar(size: size),
               TextWithUnderlineDeco( text: "Orders"),
-              OrderBox(text: "Order:1546215\nGerge"),
-              OrderBox(text: "Order:1546215\nGerge"),
-              OrderBox(text: "Order:1546215\nGerge"),
-              OrderBox(text: "Order:1546215\nGerge"),
-              OrderBox(text: "Order:1546215\nGerge"),
-              OrderBox(text: "Order:1546215\nGerge")
+              OrderBox(orderNumber: "1546215" , name: "PATRICK STAR"),
+              OrderBox(orderNumber: "2151" , name: "OLD MAN JENKINS"),
+              OrderBox(orderNumber: "78115" , name: "JOHNNY ELAINE"),
+              OrderBox(orderNumber: "78115" , name: "THE FLYING DUTCHMAN"),
+              OrderBox(orderNumber: "35" , name: "SQUIDWARD TENTACLES"),
+              OrderBox(orderNumber: "35" , name: "GARY"),
+
 
             ]
         )
-    );
+
+
+        );
+
 
     }
   }

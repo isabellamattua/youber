@@ -7,56 +7,39 @@ import 'package:youber/screens/TextWithUnderlineDeco.dart';
 class OrderBox extends StatelessWidget {
   const OrderBox({
     Key key,
-    this.text,
+     this.orderNumber,  this.name,
   }) : super(key: key);
 
-  final String text;
+
+  final String orderNumber;
+  final String name;
+
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: kDefaultPadding,
-                vertical: kDefaultPadding /2.5
-            ),
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            height: 100,
-            decoration: BoxDecoration(
-                color: kPrimaryColor.withOpacity(0.7),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    offset:  Offset(0,10),
-                    blurRadius: 50,
-                    color: kPrimaryColor.withOpacity(0.23),
-                  )
-                ]
-            ),
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: kDefaultPadding / 4),
-                  child: Text(
-                    text,
-                    style: TextStyle(fontSize: 20 , fontWeight:  FontWeight.bold),
-                  ),
+          ListView (
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children:  <Widget>[
+              Card(
+                child: ListTile(
+                  leading: Image.asset("assets/icons/basket.png", height: 30, width: 30),
+                  title: Text(orderNumber),
+                  subtitle: Text(name),
+                  trailing: Icon(Icons.more_vert),
                 ),
-              ],
-            ),
-          ),
-
-
-
-        ],
-
-
-
-
-      ),
+              ),
+        ]
+    )
+    ]
+    )
     );
+
   }
 }
 
