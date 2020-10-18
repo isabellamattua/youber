@@ -33,7 +33,7 @@ class header_bar extends StatelessWidget {
             child: Row (
               children: <Widget>[
                 Text(
-                  "Hi Name!",
+                  "Hi SpongeBob SquarePants!",
                   style: Theme.of(context).textTheme.headline5.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold
                   ),
@@ -56,7 +56,7 @@ class header_bar extends StatelessWidget {
                     BoxShadow(
                       offset:  Offset(0,10),
                       blurRadius: 50,
-                      color: kPrimaryColor.withOpacity(0.23),
+                      color: kDarkerTextColor.withOpacity(0.75),
                     )
                   ]
               ),
