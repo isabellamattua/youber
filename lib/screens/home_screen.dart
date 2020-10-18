@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Image.asset("assets/icons/setting.png", height: 30, width: 30),
-                title: new Text("Setting"),
+                title: new Text("Settings"),
               )
 
             ],
