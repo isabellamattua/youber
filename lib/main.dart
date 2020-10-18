@@ -4,7 +4,6 @@ import 'package:youber/screens/cHomePage.dart';
 import 'package:youber/screens/home_screen.dart';
 import 'package:youber/screens/loginScreen.dart';
 import 'package:nice_button/nice_button.dart';
-import 'package:youber/screens/cHomePage.dart';
 
 void main() {
   runApp(MyApp());

@@ -27,7 +27,7 @@ class Body extends StatelessWidget {
               OrderBox(orderNumber: "78115" , name: "JOHNNY ELAINE"),
               OrderBox(orderNumber: "78115" , name: "THE FLYING DUTCHMAN"),
               OrderBox(orderNumber: "35" , name: "SQUIDWARD TENTACLES"),
-              OrderBox(orderNumber: "35" , name: "GARY"),
+              OrderBox(orderNumber: "171" , name: "GARY"),
 
 
             ]
