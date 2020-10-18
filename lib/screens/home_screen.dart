@@ -8,11 +8,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
-
     );
 
   }
-
 
   AppBar buildAppBar() {
     return AppBar(
