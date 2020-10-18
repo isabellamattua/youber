@@ -7,7 +7,7 @@ import 'package:youber/screens/TextWithUnderlineDeco.dart';
 class OrderBox extends StatelessWidget {
   const OrderBox({
     Key key,
-     this.orderNumber,  this.name,
+     this.orderNumber,  this.name, String text,
   }) : super(key: key);
 
 

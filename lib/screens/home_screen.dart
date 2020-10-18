@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:youber/screens/app_drawer.dart';
 import 'package:youber/screens/body.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = "/home_screen";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: buildAppBar(),
       body: Body(),
           bottomNavigationBar: BottomNavigationBar (
