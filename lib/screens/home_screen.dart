@@ -8,6 +8,28 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
+          bottomNavigationBar: BottomNavigationBar (
+            type: BottomNavigationBarType.fixed,
+            items:[
+              BottomNavigationBarItem(
+                icon: Image.asset("assets/icons/basket.png", height: 30, width: 30),
+                title: new Text("Community basket"),
+              ),
+              BottomNavigationBarItem(
+                //icon:Icon(Icons.home),
+                icon: Image.asset("assets/icons/payment.png", height: 30, width: 30),
+                title: new Text("Home"),
+
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset("assets/icons/setting.png", height: 30, width: 30),
+                title: new Text("Setting"),
+              )
+
+            ],
+          ),
+
+
     );
 
   }
