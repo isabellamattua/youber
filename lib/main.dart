@@ -15,14 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      // debugShowCheckedModeBanner: false,
+      title: 'Youber',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: cHomePage(),
     );
   }
 }
