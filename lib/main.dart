@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'contact.dart';
+import 'contact_services.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'dart:async';
+import 'package:intl/intl.dart';
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return new MaterialApp(
+      title: 'Flutter Form Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new MyHomePage(title: 'Flutter Form Demo'),
     );
   }
 }
@@ -18,258 +25,183 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState();
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  Contact newContact = new Contact();
 
-  void _incrementCounter() {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  List<String> _colors = <String>['', 'red', 'green', 'blue', 'orange'];
+  String _color = '';
+
+  final TextEditingController _controller = new TextEditingController();
+  _chooseDate(BuildContext context, String initialDateString) async {
+    var now = new DateTime.now();
+    var initialDate = convertToDate(initialDateString) ?? now;
+    initialDate = (initialDate.year >= 1900 && initialDate.isBefore(now) ? initialDate : now);
+
+    var result = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: new DateTime(1900),
+        lastDate: new DateTime.now());
+
+    if (result == null) return;
+
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _controller.text = new DateFormat.yMd().format(result);
     });
   }
 
+
+  bool isValidDob(String dob) {
+    if (dob.isEmpty) return true;
+    var d = convertToDate(dob);
+    return d != null && d.isBefore(new DateTime.now());
+  }
+
+
+  bool isValidPhoneNumber(String input) {
+    final RegExp regex = new RegExp(r'^\(\d\d\d\)\d\d\d\-\d\d\d\d$');
+    return regex.hasMatch(input);
+  }
+
+
+
+
+  bool isValidEmail(String input) {
+    final RegExp regex = new RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+    return regex.hasMatch(input);
+  }
+
+
+  DateTime convertToDate(String input) {
+    try
+    {
+      var d = new DateFormat.yMd().parseStrict(input);
+      return d;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  void _submitForm() {
+    final FormState form = _formKey.currentState;
+
+    if (!form.validate()) {
+      showMessage('Form is not valid!  Please review and correct.');
+    } else {
+      form.save(); //This invokes each onSaved event
+
+      print('Form save called, newContact is now up to date...');
+      print('firstName: ${newContact.firstName}');
+      print('Dob: ${newContact.birthDate}');
+      print('Phone: ${newContact.phone}');
+      print('Email: ${newContact.profileUsername}');
+      print('========================================');
+      print('Submitting to back end...');
+      var contactService = new ContactService();
+      contactService.createContact(newContact);
+
+    }
+  }
+
+  void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState
+        .showSnackBar(new SnackBar(backgroundColor: color, content: new Text(message)));
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
+    return new Scaffold(
+      key: _scaffoldKey,
+      appBar: new AppBar(
+        title: new Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Choose your tip Amount:',style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24.0,
-            ),),
-            const SizedBox(height: 10.0),
-            Row(
+      body: new SafeArea(
+          top: false,
+          bottom: false,
+          child: new Form(
+              key: _formKey,
+              autovalidate: true,
+              child: new ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 children: <Widget>[
-                  Expanded(
-                    child: RoundedContainer(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0,),
-                        child: Column(
-                          children: <Widget>[
-                            Text("0.00",),
-                            const SizedBox(height: 5.0),
-                            Text("Dont Be Cheap", style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.0,
-                            ))
-                          ],
-                        )
+                  new TextFormField(
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.person),
+                      hintText: 'Enter your first and last name',
+                      labelText: 'Name',
                     ),
-                  ),                Expanded(
-                    child: RoundedContainer(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0,),
-                        child: Column(
-                          children: <Widget>[
-                            Text("3.00",),
-                            const SizedBox(height: 5.0),
-                            Text("Thats a little better!", style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.0,
-                            ))
-                          ],
-                        )
-                    ),
+                    inputFormatters: [new LengthLimitingTextInputFormatter(30)],
+                    validator: (val) => val.isEmpty ? 'Name is required' : null,
+                    onSaved: (val) => newContact.firstName = val,
                   ),
-                ]
-            ),
-
-
-
-
-            Row(
-                children: <Widget>[
-                  Expanded(
-                    child: RoundedContainer(
-                        color: Colors.indigo,
-                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0,),
-                        child: Column(
-                          children: <Widget>[
-                            Text("5.00",),
-                            const SizedBox(height: 5.0),
-                            Text("Okay thats pretty good!", style: TextStyle(
-                              color: Colors.white60,
-                              fontSize: 12.0,
-                            ))
-                          ],
-                        )
+                  new Row(children: <Widget>[
+                    new Expanded(
+                        child: new TextFormField(
+                          decoration: new InputDecoration(
+                            icon: const Icon(Icons.calendar_today),
+                            hintText: 'Enter your date of birth',
+                            labelText: 'Dob',
+                          ),
+                          controller: _controller,
+                          keyboardType: TextInputType.datetime,
+                          validator: (val) =>
+                          isValidDob(val) ? null : 'Not a valid date',
+                          onSaved: (val) => newContact.birthDate = convertToDate(val),
+                        )),
+                    new IconButton(
+                      icon: new Icon(Icons.more_horiz),
+                      tooltip: 'Choose date',
+                      onPressed: (() {
+                        _chooseDate(context, _controller.text);
+                      }),
+                    )
+                  ]),
+                  new TextFormField(
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.phone),
+                      hintText: 'Enter a phone number',
+                      labelText: 'Phone',
                     ),
-                  ),                Expanded(
-                    child: RoundedContainer(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0,),
-                        child: Column(
-                          children: <Widget>[
-                            Text("10.00",),
-                            const SizedBox(height: 5.0),
-                            Text("Your Amazing!!", style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.0,
-                            ))
-                          ],
-                        )
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      new WhitelistingTextInputFormatter(
+                          new RegExp(r'^[()\d -]{1,15}$')),
+                    ],
+
+                    onSaved: (val) => newContact.phone = val,
+                  ),
+                  new TextFormField(
+                    decoration: const InputDecoration(
+                      icon: const Icon(Icons.email),
+                      hintText: 'Enter a email address',
+                      labelText: 'Email',
                     ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) => isValidEmail(value)
+                        ? null
+                        : 'Please enter a valid email address',
+                    onSaved: (val) => newContact.profileUsername = val,
                   ),
-                ]
-            ),
-            RoundedContainer(
-                margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0,),
-                child: Column(
-                  children: <Widget>[
-                    Text("Total for Order:",),
-                    const SizedBox(height: 5.0),
-                    Text("\$25.00", style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12.0,
-                    ))
-                  ],
-                )
-            ),
-            const SizedBox(height: 30.0,),
-            RoundedContainer(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                title: Text("Paypal"),
-                trailing: Icon(Icons.arrow_forward_ios),
 
-              )
-              ,),
-            RoundedContainer(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                title: Text("Google Pay"),
-                trailing: Icon(Icons.arrow_forward_ios),
-
-              )
-              ,),
-            RoundedContainer(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                title: Text("Apple Pay"),
-                trailing: Icon(Icons.arrow_forward_ios),
-
-              )
-              ,),
-            const SizedBox(height: 20.0),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                RaisedButton(
-                  child: Text("Clear"),
-                  onPressed: () {},
-                ),
-                const SizedBox(height: 12),
-              ],
-            ),
-            Container(
-
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 32.0,),
-                child: RaisedButton(
-                  elevation: 0,
-                  padding: const EdgeInsets.all(24.0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  child: Text("Continue"),
-                  color: Colors.indigo,
-                  textColor: Colors.white,
-                  onPressed: (){},
-
-
-                )
-
-
-
-
-            ),
-
-
-          ],
-        ),
-      ),
+                  new Container(
+                      padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+                      child: new RaisedButton(
+                        child: const Text('Submit'),
+                        onPressed: _submitForm,
+                      )),
+                ],
+              ))),
     );
   }
 }
 
-class RoundedContainer extends StatelessWidget {
-  const RoundedContainer({
-    Key key,
-    @required this.child,
-    this.height,
-    this.width,
-    this.color = Colors.white,
-    this.padding = const EdgeInsets.all(16.0),
-    this.margin,
-    this.borderRadius,
-    this.alignment,
-    this.elevation,
-  }) : super(key: key);
-  final Widget child;
-  final double width;
-  final double height;
-  final Color color;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final BorderRadius borderRadius;
-  final AlignmentGeometry alignment;
-  final double elevation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: margin ?? const EdgeInsets.all(0),
-      color: color,
-      elevation: elevation ?? 0,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadius ?? BorderRadius.circular(20.0),
-      ),
-      child: Container(
-        alignment: alignment,
-        height: height,
-        width: width,
-        padding: padding,
-        child: child,
-      ),
-    );
-  }
-}
