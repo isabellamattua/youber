@@ -22,11 +22,12 @@ class Body extends StatelessWidget {
             children: <Widget>[
               header_bar(size: size),
               TextWithUnderlineDeco( text: "Orders"),
-              OrderBox(orderNumber: "1546215" , name: "Gerge Annoyinlus"),
-              OrderBox(orderNumber: "2151" , name: "Blobby Blenderson"),
-              OrderBox(orderNumber: "78115" , name: "Demoness"),
-              OrderBox(orderNumber: "78115" , name: "Baron Von Gregorio"),
-              OrderBox(orderNumber: "35" , name: "Ranibow Sprimkle"),
+              OrderBox(orderNumber: "1546215" , name: "PATRICK STAR"),
+              OrderBox(orderNumber: "2151" , name: "OLD MAN JENKINS"),
+              OrderBox(orderNumber: "78115" , name: "JOHNNY ELAINE"),
+              OrderBox(orderNumber: "78115" , name: "THE FLYING DUTCHMAN"),
+              OrderBox(orderNumber: "35" , name: "SQUIDWARD TENTACLES"),
+              OrderBox(orderNumber: "35" , name: "GARY"),
 
 
             ]

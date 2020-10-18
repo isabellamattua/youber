@@ -25,10 +25,10 @@ class OrderBox extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              children: const <Widget>[
+              children:  <Widget>[
               Card(
                 child: ListTile(
-                  leading: FlutterLogo(size: 56.0),
+                  leading: Image.asset("assets/icons/basket.png", height: 30, width: 30),
                   title: Text(orderNumber),
                   subtitle: Text(name),
                   trailing: Icon(Icons.more_vert),
