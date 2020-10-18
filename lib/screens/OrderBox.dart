@@ -8,7 +8,7 @@ import 'package:youber/screens/OrderDetails.dart';
 class OrderBox extends StatelessWidget {
   const OrderBox({
     Key key,
-     this.orderNumber,  this.name,
+     this.orderNumber,  this.name, String text,
   }) : super(key: key);
 
 

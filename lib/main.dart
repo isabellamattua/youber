@@ -5,6 +5,11 @@ import 'package:youber/screens/home_screen.dart';
 import 'package:youber/screens/loginScreen.dart';
 import 'package:nice_button/nice_button.dart';
 
+import 'package:youber/screens/cHomePage.dart';
+import 'package:youber/screens/routes.dart';
+=======
+
+
 void main() {
   runApp(MyApp());
 }
@@ -14,8 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      title: 'Flutter Demo',
+      routes: Routes.getRoutes(context),
+      initialRoute: Routes.routeName,
+
       // debugShowCheckedModeBanner: false,
       title: 'Youber',
+
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
