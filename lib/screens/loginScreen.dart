@@ -14,7 +14,6 @@ class LoginScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               height: size.height*1,
-
               child: Stack(
                 children: <Widget>[
                   Container(
